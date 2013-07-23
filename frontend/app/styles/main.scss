@@ -1,0 +1,288 @@
+//@import "../components/foundation/scss/normalize.scss";
+@import "../components/foundation/scss/foundation.scss";
+@import "../components/foundation-icons/foundation_icons_general/sass/general_foundicons.scss";
+
+body {
+	margin: 0;
+	height: 100%;
+}
+
+code pre {
+	overflow: scroll;
+}
+
+.container {
+	height: 100%;
+}
+
+.loading-indicator {
+	position: absolute;
+	top: 200px;
+	left: 50%;
+	z-index: 1000;
+	height: 50px;
+	width: 300px;
+	margin-left: -151px;
+	padding: 15px;
+	font-size: 1.15em;
+	font-style: italic;
+	text-align: center;
+}
+
+// Main View
+.new-app {
+	strong {
+		display: block;
+		margin-bottom: 1em;
+		font-size: 1.75em;
+	}
+	
+	span.error {
+		display: none;
+		margin-bottom: 5px;
+		font-size: 0.875em;
+		color: #ff0000;
+		
+		&.show {
+			display: block;
+		}
+	}
+	
+	input.error {
+		border: 2px solid #ff0000;
+	}
+	
+	button {
+		width: 100%;
+	}
+}
+
+// App View
+.app-info {
+	h1 {
+		display: inline;
+	}
+	
+	margin-bottom: 20px;
+}
+
+.app-details {
+	display: inline-block;
+	margin-left: 10px;
+	
+	.modal-link {
+		background-color: #333;
+		color: #fefefe;
+		font-size: 8pt;
+		padding: 4px 10px;
+		
+		i {
+			position: relative;
+			top: 2px;
+			left: -3px;
+		}
+	}
+	
+	h2 {
+		margin: 0 0 10px 0;
+	}
+	
+	.credentials {
+		width: 100%;
+		margin-bottom: 10px;
+		font-size: 0.875em;
+		
+		th {
+			width: 30px;
+			text-align: right;
+		}
+	}
+	
+	.warning {
+		margin: 0;
+		font-size: 0.75em;
+		line-height: 1.5em;
+		color: #999;
+	}
+}
+
+.filters {
+	margin-bottom: 10px;
+	font-size: 0.85em;
+	
+	span, a {
+		margin-right: 10px;
+		color: #d5d5d5;
+	}
+	
+	a {
+		&:hover {
+			color: darken(#d5d5d5, 5%);
+		}
+		
+		&.filterOn {
+			color: #2795b6;
+		}
+	}
+}
+
+.leafs {
+	list-style: none;
+	
+	li {
+		position: relative;
+		display: block;
+		border-bottom: 1px solid #dfdfdf;
+		padding: 5px 10px 5px 35px;
+		cursor: pointer;
+		
+		&:hover {
+			background-color: #f8f8f8;
+			
+			i.viewstate-marker {
+				display: block !important;
+			}
+		}
+		
+		&.unread {
+			background-color: #fff5f5;
+			
+			&:hover {
+				background-color: #fee;
+			}
+		}
+		
+		&.selected {
+			background-color: #333;
+			color: #eee;
+			
+			.time {
+				color: #ddd;
+			}
+		}
+		
+		i.viewstate-marker {
+			position: absolute;
+			left: 10px;
+			font-size: 0.75em;
+			line-height: 2.5em;
+			
+			&.unread {
+				color: #ff0000;
+			}
+			
+			&.read {
+				display: none;
+			}
+		}
+		
+		.description, .time {
+			display: block;
+			line-height: 1.15em;
+		}
+		
+		.description {
+			
+		}
+		
+		.time {
+			font-size: 0.75em;
+			color: #888;
+		}
+	}
+}
+
+.selected-leaf {
+	width: 500px;
+	position: relative;
+	padding: 10px 20px 20px;
+	
+	span {
+		display: block;
+		line-height: 1.75em;
+		font-size: 0.875em;
+	}
+	
+	.description {
+		font-weight: bold;
+	}
+	
+	code pre {
+		margin: 6px 0;
+		border: 1px solid #999;
+		padding: 6px;
+		font-size: small;
+		background-color: #fefefe;
+	}
+	
+	a.view-more {
+		background-color: #333;
+		color: #fefefe;
+		position: absolute;
+		bottom: 0;
+		right: 0;
+		font-size: 8pt;
+		padding: 4px 10px;
+	}
+}
+
+// Leaf View
+.leaf-details {
+	strong, span {
+		display: block;
+	}
+	
+	strong {
+		font-size: 1.5em;
+		margin-bottom: 10px;
+	}
+	
+	span {
+		font-family: monospace;
+		margin-top: 5px;
+	}
+}
+
+.info-pane {
+	margin-bottom: 1.25em;
+	
+	.info-pane-title {
+		@include button;
+		
+		width: 100%;
+		margin-bottom: 5px;
+		text-align: center;
+	}
+	
+	.info-pane-content {
+		
+		code pre {
+			border: 1px solid #999;
+			padding: 6px;
+			background-color: #fcfcfc;
+		}
+	}
+}
+
+// Provides transitions on view change
+.animate-enter, .animate-leave {
+	-webkit-transition: all 0.25s linear;
+	-moz-transition: all 0.25s linear;
+	-ms-transition: all 0.25s linear;
+	-o-transition: all 0.25s linear;
+	transition: all 0.25s linear;
+}
+
+.animate-enter {
+  opacity: 0;
+}
+.animate-enter.animate-enter-active {
+  opacity: 1;
+}
+
+.animate-leave {
+  opacity: 1;
+}
+.animate-leave.animate-leave-active {
+  opacity: 0;
+}

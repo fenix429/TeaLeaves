@@ -1,0 +1,6 @@
+development:
+  sessions:
+    default:
+      database: tea_leaves
+      hosts:
+        - localhost:27017

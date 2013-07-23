@@ -1,0 +1,24 @@
+
+<div class="view" ng-show="leafLoaded" ng-init="init()">
+	
+	<div class="row">
+		<div class="large-12 columns">
+		
+			<h1>Leaf Details</h1>
+		
+			<div class="panel leaf-details">
+				<strong class="description">{{ leaf.description }}</strong>
+				<span class="where">File: {{ leaf.file }} / Line Number: {{ leaf.line_number }}</span>
+				<span class="time">{{ formatTime(leaf.created_at) }}</span>
+			</div>
+
+			<div info-pane title="details" content="{{ leaf.details }}"></div>
+		
+			<div ng-show="hasExtra">
+				<div info-pane title="extra" content="{{ leaf.extra }}"></div>
+			</div>
+		
+		</div>
+	</div>
+
+</div>

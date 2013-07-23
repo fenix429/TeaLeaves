@@ -1,0 +1,63 @@
+
+<div class="view" ng-show="appLoaded" ng-init="init()">
+	
+	<div class="row">
+		<div class="large-12 columns app-info">
+	
+			<h1>{{ app.name }}</h1>
+		
+			<div class="app-details" reveal-modal title="App Details" link-text="App Details" link-icon="settings">
+				<table class="credentials" cellpadding="0" cellspacing="0" border="0">
+					<tr>
+						<th>Key:</th>
+						<td>{{ app.app_key }}</td>
+					</tr>
+					<tr>
+						<th>Secret:</th>
+						<td>{{ app.app_secret }}</td>
+					</tr>
+				</table>
+				<p class="warning">
+					Please protect this information, you will need these when accessing the public API.<br>
+					If someone else obtains your credentails, they will be able to make requests as you.
+				</p>
+			</div>
+		
+		</div>
+	</div>
+
+	<div class="row" ng-show="!hasLeafs">
+		<div class="large-12 columns">
+			<strong style="font-size: 1.75em;">This App has no Leaves.</strong>
+		</div>
+	</div>
+
+	<div class="row" ng-show="hasLeafs">
+		<div class="large-6 columns">
+			
+			<input type="text" placeholder="Search" ng-model="searchLeafs">
+			
+			<div class="filters">
+				<a ng-click="setDaysToFilter(1)" ng-class="{ filterOn:daysToFilter === 1 }">1 day</a>
+				<a ng-click="setDaysToFilter(5)" ng-class="{ filterOn:daysToFilter === 5 }">5 days</a>
+				<a ng-click="setDaysToFilter(10)" ng-class="{ filterOn:daysToFilter === 10 }">10 days</a>
+				<span>|</span>
+				<a ng-click="toggleUnreadFilter()" ng-class="{ filterOn:filterUnread }">unread</a>
+			</div>
+			
+			<ul class="leafs">
+				<li ng-repeat="leaf in app.leafs | filter:searchLeafs | filter:unreadLeafs() | filter:leafsByDays()" ng-class="{unread: leaf.unread, selected: leaf.id === selectedLeaf.id}" ng-click="selectLeaf(leaf.id)">
+						<i class="foundicon-flag viewstate-marker" ng-class="{unread: leaf.unread, read: !leaf.unread}" ng-click="toggleViewState(leaf); $event.stopPropagation()"></i> <span class="description">{{ leaf.description }}</span> <span class="time">{{ formatTime(leaf.created_at) }}</span>
+				</li>
+			</ul>
+	
+		</div>
+	
+		<div class="large-6 columns">
+		
+			<div leaf-box leaf="selectedLeaf"></div>
+	
+		</div>
+	</div>
+	
+</div>

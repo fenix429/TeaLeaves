@@ -1,0 +1,74 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!-- build:css styles/main.css -->
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- endbuild -->
+  </head>
+  <body ng-app="TeaLeavesApp">
+    <!--[if lt IE 7]>
+      <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
+    <![endif]-->
+
+    <!--[if lt IE 9]>
+      <script src="components/es5-shim/es5-shim.js"></script>
+      <script src="components/json3/lib/json3.min.js"></script>
+    <![endif]-->
+
+    <!-- Add your site or application content here -->
+    <div class="container">
+			<nav class="top-bar">
+			  <ul class="title-area">
+			    <!-- Title Area -->
+			    <li class="name">
+			      <h1><a href="#/">TeaLeaves</a></h1>
+			    </li>
+			  </ul>
+				
+			</nav>
+			
+			<div class="loading-indicator panel" ng-show="isWorking" style="display: none;">
+				Loading data...
+			</div>
+			
+    	<div class="row">
+				<div class="small-12 columns" ng-view></div>
+			</div>
+    </div>
+		
+		<!-- build:js scripts/libs.js -->
+		<script src="components/moment/moment.js"></script>
+		<script src="components/store/store.js"></script>
+		<script src="components/lodash/lodash.js"></script>
+		<script src="components/jquery/jquery.js"></script>
+		<script src="components/jquery.sticky/jquery.sticky.js"></script>
+		<script src="components/foundation/js/foundation.min.js"></script>
+    <script src="components/angularjs-bower/angular.js"></script>
+    <script src="components/angularjs-bower/angular-resource.js"></script>
+    <script src="components/angularjs-bower/angular-cookies.js"></script>
+    <script src="components/angularjs-bower/angular-sanitize.js"></script>
+		<!-- endbuild -->
+		
+    <!-- build:js scripts/app.js -->
+    <script src="scripts/app.js"></script>
+    <script src="scripts/services/utils.js"></script>
+    <script src="scripts/services/brew.js"></script>
+    <script src="scripts/controllers/main.js"></script>
+    <script src="scripts/controllers/app.js"></script>
+    <script src="scripts/controllers/leaf.js"></script>
+    <script src="scripts/directives/infoPane.js"></script>
+    <script src="scripts/directives/leafBox.js"></script>
+    <script src="scripts/directives/revealModal.js"></script>
+    <!-- endbuild -->
+		
+  </body>
+</html>

@@ -1,0 +1,29 @@
+
+<div class="view" ng-show="appsLoaded" ng-init="init()">
+	
+	<div class="row">
+	  <div class="large-6 columns">
+		
+			<h1>Apps</h1>
+			
+			<ul>
+			    <li ng-repeat="app in apps">
+						<a ng-href="#/app/{{ app.id }}">{{ app.name }}</a>
+						<span class="round alert label" ng-show="{{ app.unread_count > 0 }}">{{ app.unread_count }}</span>
+					</li>
+			</ul>
+		
+		</div>
+	  <div class="large-6 columns">
+		
+			<div class="panel new-app">
+				<strong>Register a new App</strong>
+	      <span class="error" ng-class="{ show:showError }">Name is Required</span>
+				<input type="text" name="name" placeholder="Name" ng-model="newApp.name" ng-class="{ error:showError }">
+				<button ng-click="registerApp(newApp)">Create</button>
+			</div>
+		
+		</div>
+	</div>
+
+</div>

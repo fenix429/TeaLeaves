@@ -1,0 +1,139 @@
+#!/usr/bin/env ruby
+
+require 'mongoid'
+require 'json'
+
+require_relative '../models/app'
+require_relative '../models/leaf'
+
+ENV["MONGOID_ENV"] = "development"
+
+class MyMongo
+  def initialize
+    Mongoid.load! "config/mongoid.yml"
+    
+    @apps = TeaLeaves::App.all
+  end
+
+  def reset
+    TeaLeaves::App.delete_all
+
+    myapp = TeaLeaves::App.create!({
+      :name => 'MyApp'
+    })
+
+    keys = myapp.generate_credentials
+
+    stack_trace = "SyntaxError - /Users/jonathan/Documents/My Projects/TeaLeaves/controllers/../views/app.rabl:4: syntax error, unexpected ':', expecting end-of-input
+... :name, :app_key, :app_secret :leafs => partial(\"leafs\", :ob...
+...                               ^:
+	/usr/local/Cellar/ruby/2.0.0-p195/lib/ruby/gems/2.0.0/gems/rabl-0.8.6/lib/rabl/engine.rb:33:in `instance_eval'
+	/usr/local/Cellar/ruby/2.0.0-p195/lib/ruby/gems/2.0.0/gems/rabl-0.8.6/lib/rabl/engine.rb:33:in `render'
+	/usr/local/Cellar/ruby/2.0.0-p195/lib/ruby/gems/2.0.0/gems/rabl-0.8.6/lib/rabl/template.rb:15:in `evaluate'
+	/usr/local/Cellar/ruby/2.0.0-p195/lib/ruby/gems/2.0.0/gems/tilt-1.4.1/lib/tilt/template.rb:103:in `render'
+	/usr/local/Cellar/ruby/2.0.0-p195/lib/ruby/gems/2.0.0/gems/sinatra-1.4.3/lib/sinatra/base.rb:798:in `render'
+	/usr/local/Cellar/ruby/2.0.0-p195/lib/ruby/gems/2.0.0/gems/sinatra-1.4.3/lib/sinatra/base.rb:748:in `rabl'
+	/Users/jonathan/Documents/My Projects/TeaLeaves/controllers/private_api.rb:48:in `block in <class:Application>'
+	/usr/local/Cellar/ruby/2.0.0-p195/lib/ruby/gems/2.0.0/gems/sinatra-1.4.3/lib/sinatra/base.rb:1541:in `call'
+	/usr/local/Cellar/ruby/2.0.0-p195/lib/ruby/gems/2.0.0/gems/sinatra-1.4.3/lib/sinatra/base.rb:1541:in `block in compile!'
+	/usr/local/Cellar/ruby/2.0.0-p195/lib/ruby/gems/2.0.0/gems/sinatra-1.4.3/lib/sinatra/base.rb:950:in `[]'
+	/usr/local/Cellar/ruby/2.0.0-p195/lib/ruby/gems/2.0.0/gems/sinatra-1.4.3/lib/sinatra/base.rb:950:in `block (3 levels) in route!'
+	/usr/local/Cellar/ruby/2.0.0-p195/lib/ruby/gems/2.0.0/gems/sinatra-1.4.3/lib/sinatra/base.rb:966:in `route_eval'
+	/usr/local/Cellar/ruby/2.0.0-p195/lib/ruby/gems/2.0.0/gems/sinatra-1.4.3/lib/sinatra/base.rb:950:in `block (2 levels) in route!'
+	/usr/local/Cellar/ruby/2.0.0-p195/lib/ruby/gems/2.0.0/gems/sinatra-1.4.3/lib/sinatra/base.rb:987:in `block in process_route'
+	/usr/local/Cellar/ruby/2.0.0-p195/lib/ruby/gems/2.0.0/gems/sinatra-1.4.3/lib/sinatra/base.rb:985:in `catch'
+	/usr/local/Cellar/ruby/2.0.0-p195/lib/ruby/gems/2.0.0/gems/sinatra-1.4.3/lib/sinatra/base.rb:985:in `process_route'
+	/usr/local/Cellar/ruby/2.0.0-p195/lib/ruby/gems/2.0.0/gems/sinatra-1.4.3/lib/sinatra/base.rb:948:in `block in route!'
+	/usr/local/Cellar/ruby/2.0.0-p195/lib/ruby/gems/2.0.0/gems/sinatra-1.4.3/lib/sinatra/base.rb:947:in `each'
+	/usr/local/Cellar/ruby/2.0.0-p195/lib/ruby/gems/2.0.0/gems/sinatra-1.4.3/lib/sinatra/base.rb:947:in `route!'
+	/usr/local/Cellar/ruby/2.0.0-p195/lib/ruby/gems/2.0.0/gems/sinatra-1.4.3/lib/sinatra/base.rb:1059:in `block in dispatch!'
+	/usr/local/Cellar/ruby/2.0.0-p195/lib/ruby/gems/2.0.0/gems/sinatra-1.4.3/lib/sinatra/base.rb:1041:in `block in invoke'
+	/usr/local/Cellar/ruby/2.0.0-p195/lib/ruby/gems/2.0.0/gems/sinatra-1.4.3/lib/sinatra/base.rb:1041:in `catch'
+	/usr/local/Cellar/ruby/2.0.0-p195/lib/ruby/gems/2.0.0/gems/sinatra-1.4.3/lib/sinatra/base.rb:1041:in `invoke'
+	/usr/local/Cellar/ruby/2.0.0-p195/lib/ruby/gems/2.0.0/gems/sinatra-1.4.3/lib/sinatra/base.rb:1056:in `dispatch!'
+	/usr/local/Cellar/ruby/2.0.0-p195/lib/ruby/gems/2.0.0/gems/sinatra-1.4.3/lib/sinatra/base.rb:882:in `block in call!'
+	/usr/local/Cellar/ruby/2.0.0-p195/lib/ruby/gems/2.0.0/gems/sinatra-1.4.3/lib/sinatra/base.rb:1041:in `block in invoke'
+	/usr/local/Cellar/ruby/2.0.0-p195/lib/ruby/gems/2.0.0/gems/sinatra-1.4.3/lib/sinatra/base.rb:1041:in `catch'
+	/usr/local/Cellar/ruby/2.0.0-p195/lib/ruby/gems/2.0.0/gems/sinatra-1.4.3/lib/sinatra/base.rb:1041:in `invoke'
+	/usr/local/Cellar/ruby/2.0.0-p195/lib/ruby/gems/2.0.0/gems/sinatra-1.4.3/lib/sinatra/base.rb:882:in `call!'
+	/usr/local/Cellar/ruby/2.0.0-p195/lib/ruby/gems/2.0.0/gems/sinatra-1.4.3/lib/sinatra/base.rb:870:in `call'
+	/usr/local/Cellar/ruby/2.0.0-p195/lib/ruby/gems/2.0.0/gems/rack-1.5.2/lib/rack/session/abstract/id.rb:225:in `context'
+	/usr/local/Cellar/ruby/2.0.0-p195/lib/ruby/gems/2.0.0/gems/rack-1.5.2/lib/rack/session/abstract/id.rb:220:in `call'
+	/usr/local/Cellar/ruby/2.0.0-p195/lib/ruby/gems/2.0.0/gems/rack-protection-1.5.0/lib/rack/protection/xss_header.rb:18:in `call'
+	/usr/local/Cellar/ruby/2.0.0-p195/lib/ruby/gems/2.0.0/gems/rack-protection-1.5.0/lib/rack/protection/path_traversal.rb:16:in `call'
+	/usr/local/Cellar/ruby/2.0.0-p195/lib/ruby/gems/2.0.0/gems/rack-protection-1.5.0/lib/rack/protection/json_csrf.rb:18:in `call'
+	/usr/local/Cellar/ruby/2.0.0-p195/lib/ruby/gems/2.0.0/gems/rack-protection-1.5.0/lib/rack/protection/base.rb:49:in `call'
+	/usr/local/Cellar/ruby/2.0.0-p195/lib/ruby/gems/2.0.0/gems/rack-protection-1.5.0/lib/rack/protection/base.rb:49:in `call'
+	/usr/local/Cellar/ruby/2.0.0-p195/lib/ruby/gems/2.0.0/gems/rack-protection-1.5.0/lib/rack/protection/frame_options.rb:31:in `call'
+	/usr/local/Cellar/ruby/2.0.0-p195/lib/ruby/gems/2.0.0/gems/rack-1.5.2/lib/rack/nulllogger.rb:9:in `call'
+	/usr/local/Cellar/ruby/2.0.0-p195/lib/ruby/gems/2.0.0/gems/rack-1.5.2/lib/rack/head.rb:11:in `call'
+	/usr/local/Cellar/ruby/2.0.0-p195/lib/ruby/gems/2.0.0/gems/sinatra-1.4.3/lib/sinatra/base.rb:175:in `call'
+	/usr/local/Cellar/ruby/2.0.0-p195/lib/ruby/gems/2.0.0/gems/sinatra-1.4.3/lib/sinatra/base.rb:1949:in `call'
+	/usr/local/Cellar/ruby/2.0.0-p195/lib/ruby/gems/2.0.0/gems/sinatra-1.4.3/lib/sinatra/base.rb:1449:in `block in call'
+	/usr/local/Cellar/ruby/2.0.0-p195/lib/ruby/gems/2.0.0/gems/sinatra-1.4.3/lib/sinatra/base.rb:1726:in `synchronize'
+	/usr/local/Cellar/ruby/2.0.0-p195/lib/ruby/gems/2.0.0/gems/sinatra-1.4.3/lib/sinatra/base.rb:1449:in `call'
+	/usr/local/Cellar/ruby/2.0.0-p195/lib/ruby/gems/2.0.0/gems/rack-1.5.2/lib/rack/lint.rb:49:in `_call'
+	/usr/local/Cellar/ruby/2.0.0-p195/lib/ruby/gems/2.0.0/gems/rack-1.5.2/lib/rack/lint.rb:37:in `call'
+	/usr/local/Cellar/ruby/2.0.0-p195/lib/ruby/gems/2.0.0/gems/rack-1.5.2/lib/rack/showexceptions.rb:24:in `call'
+	/usr/local/Cellar/ruby/2.0.0-p195/lib/ruby/gems/2.0.0/gems/rack-1.5.2/lib/rack/commonlogger.rb:33:in `call'
+	/usr/local/Cellar/ruby/2.0.0-p195/lib/ruby/gems/2.0.0/gems/sinatra-1.4.3/lib/sinatra/base.rb:212:in `call'
+	/usr/local/Cellar/ruby/2.0.0-p195/lib/ruby/gems/2.0.0/gems/shotgun-0.9/lib/shotgun/loader.rb:86:in `proceed_as_child'
+	/usr/local/Cellar/ruby/2.0.0-p195/lib/ruby/gems/2.0.0/gems/shotgun-0.9/lib/shotgun/loader.rb:31:in `call!'
+	/usr/local/Cellar/ruby/2.0.0-p195/lib/ruby/gems/2.0.0/gems/shotgun-0.9/lib/shotgun/loader.rb:18:in `call'
+	/usr/local/Cellar/ruby/2.0.0-p195/lib/ruby/gems/2.0.0/gems/shotgun-0.9/lib/shotgun/favicon.rb:12:in `call'
+	/usr/local/Cellar/ruby/2.0.0-p195/lib/ruby/gems/2.0.0/gems/rack-1.5.2/lib/rack/builder.rb:138:in `call'
+	/usr/local/Cellar/ruby/2.0.0-p195/lib/ruby/gems/2.0.0/gems/rack-1.5.2/lib/rack/handler/webrick.rb:60:in `service'
+	/usr/local/Cellar/ruby/2.0.0-p195/lib/ruby/2.0.0/webrick/httpserver.rb:138:in `service'
+	/usr/local/Cellar/ruby/2.0.0-p195/lib/ruby/2.0.0/webrick/httpserver.rb:94:in `run'
+	/usr/local/Cellar/ruby/2.0.0-p195/lib/ruby/2.0.0/webrick/server.rb:295:in `block in start_thread'"
+      
+    divide_by_zero = "divided by 0
+fake.rb:3:in `/'
+fake.rb:3:in `<main>'"
+      
+    leafs = [
+      { description: 'One Leaf',     details: stack_trace,    file: 'myfile.php', line_number: '1', extra: nil, unread: false },
+      { description: 'Two Leaves',   details: stack_trace,    file: 'myfile.php', line_number: '2', extra: 'Fe Fi Fo Fum, I smell the blood of an englishman!', unread: false },
+      { description: 'Three Leaves', details: divide_by_zero, file: 'myfile.php', line_number: '3', extra: nil },
+      { description: 'Four Leaves',  details: divide_by_zero, file: 'myfile.php', line_number: '4', extra: 'One - Two, Buckle My Shoe.  Three - Four, Out The Door.  Five - Six, Pick Up Sticks!' },
+      { description: 'Five Leaves',  details: stack_trace,    file: 'myfile.php', line_number: '5', extra: nil }
+    ]
+
+    i = 1
+
+    25.times do
+      
+      
+      puts "loop #{i}"
+      
+      leaf_num = rand(5)
+      
+      puts "leaf ##{leaf_num} picked"
+      
+      myapp.leafs << TeaLeaves::Leaf.new(leafs[leaf_num])
+      
+      myapp.save
+      
+      seed = rand(9999999999999999999999999999999999999999999999999999999999)
+      
+      #puts "new seed is: #{seed}"
+      
+      srand seed
+      
+      sec = 1 + rand(29)
+      
+      puts "sleeping for #{sec} seconds"
+      
+      sleep sec
+      
+      i += 1
+    end
+
+    puts keys.to_json
+    
+  end
+end
+
+mg = MyMongo.new
+
+mg.reset

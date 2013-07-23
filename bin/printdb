@@ -1,0 +1,36 @@
+#!/usr/bin/env ruby
+
+require 'mongoid'
+require 'json'
+
+require_relative '../models/app'
+require_relative '../models/leaf'
+
+ENV["MONGOID_ENV"] = "development"
+
+class MyMongo
+  def initialize
+    Mongoid.load! "config/mongoid.yml"
+    
+    @apps = TeaLeaves::App.all
+  end
+  
+  def print
+    @apps.each do |app|
+      puts app.name.capitalize
+      puts "app_key: #{app.app_key}"
+      puts "app_secret: #{app.app_secret}"
+      puts " "
+      
+      app.leafs.each do |leaf|
+        puts leaf.to_json
+      end
+      
+      puts "-----------------------------------------"
+    end
+  end
+end
+
+mg = MyMongo.new
+
+mg.print
